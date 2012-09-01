@@ -2,6 +2,8 @@
 deploy.sh
 .svn*
 .idea
+js/lib
+css/jquery*
 
 # Compiled source #
 ###################

@@ -1,0 +1,13 @@
+load:
+  - js/lib/jquery-1.7.2.min.js
+  - js/lib/jquery.svg.min.js
+  - js/utils.js
+  - js/model.js
+  - js/emst.js
+  - js/view.js
+test:
+  - test/UtilsTest.js
+  - test/GeometryTest.js
+  - test/ModelTest.js
+  - test/AnimationTest.js
+  - test/EmstTest.js
