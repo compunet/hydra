@@ -77,7 +77,6 @@ var EMST = function(){
 
     return {
         computeEMST : function(points){
-
             if(points == null || points.length == 0){
                 throw new Error("EMST: input error");
             }
@@ -85,12 +84,13 @@ var EMST = function(){
             var S = new Array();
             var notS = new Array().concat(points);
 
+
             /* Add EMST variable to any point */
             for(var i = 0; i < notS.length; i++){
                 notS[i].EMST = tree();
             }
 
-            /*Just pick a root element
+            /*Just pick a starting root element
              * Note: S will contains the EMST at the end of the procedure
              * */
             S.push(notS.removeElementAtIndex(0));
