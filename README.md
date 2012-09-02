@@ -11,7 +11,7 @@ to get started:
 
 to see the API documentation:
 - install yuidoc (http://yui.github.com/yuidoc/)
-- go under this dir and run "yuidoc --server"
+- from the root dir run "yuidoc --server"
 - visit http://127.0.0.1:3000/
 
 to run tests in WebStorm:

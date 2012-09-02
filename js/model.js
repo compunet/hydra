@@ -31,7 +31,7 @@
 var idcounter = 0;
 
 /**
- * Represents a point in 2D space.
+ * Represents a point in two-dimensional space.
  *
  * @class Point
  * @constructor
@@ -117,10 +117,22 @@ function AS(params){
             return radius;
         },
 
+        /**
+         * Updates the radius.
+         *
+         * @method setRadius
+         * @param {Number} newRadius the new value for the radius
+         */
         setRadius: function(newRadius) {
             radius = newRadius;
         },
 
+        /**
+         * Updates the center.
+         *
+         * @method setCenter
+         * @param {Point} newCenter the new value for the center
+         */
         setCenter: function(newCenter) {
             center = newCenter;
         },
@@ -219,30 +231,83 @@ function MainAS(params) {
         getName: function(){
             return name;
         },
+
+        /**
+         * Returns the AS number.
+         *
+         * @method getNumber
+         * @return {Integer} AS number
+         */
         getNumber: function() {
             return number;
         },
+
+        /**
+         * Returns the radius.
+         *
+         * @method getRadius
+         * @return {Number} radius
+         */
         getRadius: function(){ // returns a number
             return radius;
         },
 
+        /**
+         * Updates the radius.
+         *
+         * @method setRadius
+         * @param {Number} newRadius the new value for the radius
+         */
         setRadius: function(newRadius) {
             radius = newRadius;
         },
 
+        /**
+         * Updates the center.
+         *
+         * @method setCenter
+         * @param {Point} newCenter the new value for the center
+         */
         setCenter: function(newCenter) {
             center = newCenter;
         },
 
-        getCenter: function(){ // returns an object as {x:10,y:20};
+        /**
+         * Returns the center.
+         *
+         * @method getCenter
+         * @return {Point} center
+         */
+        getCenter: function(){
             return center;
         },
+
+        /**
+         * Returns the URL of the background image.
+         *
+         * @method getImageURL
+         * @return {String} URL of the background image
+         */
         getImageURL: function() {
             return imageURL;
         },
+
+        /**
+         * Returns the graphical elements associated with this AS.
+         *
+         * @method getGraphics
+         * @return {Object} graphical elements
+         */
         getGraphics: function() {
             return graphics;
         },
+
+        /**
+         * Associates new graphical elements with this AS.
+         *
+         * @method setGraphics
+         * @param {Object} newGraphics the new graphical elements
+         */
         setGraphics: function(newGraphics) {
             graphics = newGraphics;
         }
@@ -269,57 +334,131 @@ function ASLink(params){
     var width = params.width || 0;
     var sectorWidth = params.sectorWidth || width * 2/3;
     var graphics; // {link: SVGPolygon}
-    var p1, p2, direction, left, right, length;
+    var p1, p2, direction, left, length;
     if(as1 && as2) {
         p1 = as1.getCenter();
         p2 = as2.getCenter();
         length = Geometry.pointDistance(p1, p2);
         direction = Geometry.direction(p1, p2, length);
         left = Geometry.left(direction);
-        right = Geometry.right(direction);
     }
 
     return {
+
+        /**
+         * UID
+         *
+         * @property id
+         */
         id: id,
-        getASesByNumber: function(){ // returns an object as {AS1number: AS1, AS2number: AS2}
-            var ASes = {};
-            ASes[as1.getNumber()] = as1;
-            ASes[as2.getNumber()] = as2;
-            return ASes;
-        },
-        getWidth: function() { // returns width (double)
+
+        /**
+         * Returns the width of this link.
+         *
+         * @method getWidth
+         * @return {Number} the width of this link
+         */
+        getWidth: function() {
             return width;
         },
+
+        /**
+         * Updates the width of this link.
+         *
+         * @method setWidth
+         * @param {Number} newWidth the new width of this link
+         */
         setWidth: function(newWidth) {
             width = newWidth;
         },
+
+        /**
+         * Returns the sector width, i.e. the portion of width of this link that can be filled with AS-paths.
+         *
+         * @method getSectorWidth
+         * @return {Number} the sector width of this link
+         */
         getSectorWidth: function() {
             return sectorWidth;
         },
+
+        /**
+         * Updates the sector width.
+         *
+         * @method setSectorWidth
+         * @param {Number} newSectorWidth the new sector width of this link
+         */
         setSectorWidth: function(newSectorWidth) {
             sectorWidth = newSectorWidth;
         },
+
+        /**
+         * Returns the first AS of this link.
+         *
+         * @method getFirstAS
+         * @return {AS} the first AS
+         */
         getFirstAS: function() {
             return as1;
         },
+
+        /**
+         * Returns the second AS of this link.
+         *
+         * @method getSecondAS
+         * @return {AS} the second AS
+         */
         getSecondAS: function() {
             return as2;
         },
+
+        /**
+         * Returns the length of this link.
+         *
+         * @method getLength
+         * @return {Number} the length of this link
+         */
         getLength: function() {
             return length;
         },
+
+        /**
+         * Returns the direction, i.e. a unit vector representing the direction from the first to the second AS.
+         *
+         * @method getDirection
+         * @return {Point} the direction of this link
+         */
         getDirection: function() {
             return direction;
         },
+
+        /**
+         * Returns the left direction of this link, i.e. the unit vector obtained rotating the original direction
+         * by 90 degrees to the left.
+         *
+         * @method getLeftDirection
+         * @return {Point} the left direction of this link
+         */
         getLeftDirection: function() {
             return left;
         },
-        getRightDirection: function() {
-            return right;
-        },
+
+        /**
+         * Returns the graphical elements associated with this link.
+         *
+         * @method getGraphics
+         * @return {Object} graphical elements
+         */
         getGraphics: function() {
             return graphics;
         },
+
+        /**
+         * Associates new graphical elements with this link.
+         *
+         * @method setGraphics
+         * @param {Object} newGraphics the new graphical elements
+         */
         setGraphics: function(newGraphics) {
             graphics = newGraphics;
         }
@@ -852,7 +991,6 @@ function SVGPath() {
     };
 
 }
-
 
 
 
