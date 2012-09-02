@@ -35,7 +35,7 @@ var EMST = function(){
             }
         }
         return edge;
-    };
+    }
 
     function tree(){
         var parent = null;
@@ -72,7 +72,7 @@ var EMST = function(){
                 );
             }
         }
-    };
+    }
 
 
     return {
@@ -136,17 +136,15 @@ var EMST = function(){
             };
 
             var reorderClockwise = function (node, referNode){
+
+                var neighbour;
+
                 if(node.EMST.neighbours().isEmpty()){
                     return;
                 }else{
                     for(var i = 0; i<node.EMST.neighbours(); i++){
 
-
-
-                        //TO DO
-                        //TO DO
-                        //TO DO
-
+                        //TODO
 
                         neighbour = node.neighbours()[i];
                         neighbour.EMST.setAngle(
@@ -185,7 +183,7 @@ var EMST = function(){
                 return svgPath;
             };
 
-            var svgp = SVGPath()
+            var svgp = new SVGPath();
             getBorder(root, "m", svgp).Z();
             return svgp;
         }

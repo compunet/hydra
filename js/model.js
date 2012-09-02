@@ -976,19 +976,20 @@ function SVGPath() {
          */
         addFakePoints: function(number, position) {
 
+            var oldPath = path;
             var i, j, segmentPoints, lastPoint;
-            position = position || path.length / 2;
+            position = position || oldPath.length / 2;
             number = number || 0;
 
             // reset the SVG path and start from scratch
             reset();
 
-            for(i = 0; i < path.length; i++) {
+            for(i = 0; i < oldPath.length; i++) {
 
                 // use old piece of path
-                segmentPoints = path[i].points;
+                segmentPoints = oldPath[i].points;
 
-                update(path[i].cmd, path[i].type, segmentPoints);
+                update(oldPath[i].cmd, oldPath[i].type, segmentPoints);
 
                 if(segmentPoints.length > 0) {
 
@@ -1015,21 +1016,23 @@ function SVGPath() {
          */
         removeFakePoints: function() {
 
-            var i, segmentPoints, lastPoint = 0;
+            var oldPath = path;
+
+            var i, segmentPoints, lastPoint;
 
             // reset the SVG path and start from scratch
             reset();
 
-            for(i = 0; i < path.length; i++) {
+            for(i = 0; i < oldPath.length; i++) {
 
-                segmentPoints = path[i].points;
+                segmentPoints = oldPath[i].points;
 
                 // only add piece of path if it is not a fake point
                 if(
-                    path[i].type != "line" ||
-                    !Utils.sameArray(path[i].points, [lastPoint])
+                    oldPath[i].type != "line" ||
+                    !Utils.sameArray(oldPath[i].points, [lastPoint])
                     ) {
-                    update(path[i].type.cmd, path[i].type, segmentPoints);
+                    update(oldPath[i].type.cmd, oldPath[i].type, segmentPoints);
                 }
 
                 lastPoint = segmentPoints[segmentPoints.length - 1];

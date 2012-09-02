@@ -48,7 +48,7 @@ var Timeline = function() {
     const defaultTimelineEventXPadding = 60;
     const defaultTimelineCursorPadding = 10;
     const defaultTimelineCursorWidth = 50;
-    const defaultAnimationTime = 800;
+    const defaultAnimationTime = 80;
 
 
     const timelineFrameRectangleDefaultStyle = {
@@ -240,7 +240,7 @@ var Canvas = function() {
     const defaultSaturation = 1.0, defaultLightness = 0.45, defaultValue = 1.0;
 
     // animation
-    const animationTimeDefault = 5000;
+    const animationTimeDefault = 2000;
     const animationPrepareTime = 0.1 * animationTimeDefault;
     const animationMainTime = 0.8 * animationTimeDefault;
     const animationEndTime = 0.1 * animationTimeDefault;
@@ -799,8 +799,6 @@ var Canvas = function() {
                 as = asGraph.getASes()[i];
 
                 graphics = as.getGraphics();
-
-                console.log("as graphics", graphics);
 
                 graphics.upperCircle.insertAfter(asPathEndCircle);
                 graphics.text.insertAfter(graphics.upperCircle);

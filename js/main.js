@@ -651,7 +651,7 @@ var Main = function() {
 
             initAtlasBGPEngine(svg, params);
 
-            setTimeout(AtlasBgpEngine.play, 15000);
+            setTimeout(AtlasBgpEngine.play, 1000);
         }
 
     };
