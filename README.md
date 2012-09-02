@@ -18,7 +18,7 @@ to run tests in WebStorm:
 - click "JsTestDriver Server" at the bottom of the window
 - push the play button (upper left corner)
 - copypaste the URL into a browser
-- right-click the file atlasbgp.jstd and choose "Run atlasbgp.jstd"
+- right-click the file bgpdeco.jstd and choose "Run bgpdeco.jstd"
 
 to switch from Raphael to jQuery-SVG (and viceversa) edit scripts in index.html as follows:
 - add jQuery-svg scripts right under the standard jQuery import

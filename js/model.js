@@ -27,8 +27,10 @@
  * @module model
  */
 
-//Used to assign unique IDs to objects of the model.
-var idcounter = 0;
+
+// used to assign unique IDs to objects of the model
+var idCounter = 0;
+
 
 /**
  * Represents a point in two-dimensional space.
@@ -56,6 +58,109 @@ function Point(x, y) {
     }
 }
 
+
+/**
+ * A generic graphical element.
+ *
+ * @class GraphicalElement
+ * @constructor
+ */
+function GraphicalElement() {
+
+    var graphics = {};
+
+    /**
+     * Returns the graphics associated with this graphical element.
+     *
+     * @method getGraphics
+     * @return {Object} graphics
+     */
+    this.getGraphics = function() {
+        return graphics;
+    };
+
+    /**
+     * Associates new graphics with this graphical element.
+     *
+     * @method setGraphics
+     * @param {Object} newGraphics the new graphis
+     */
+    this.setGraphics = function(newGraphics) {
+        graphics = newGraphics;
+    };
+
+    /**
+     * Updates graphics with a new component.
+     *
+     * @method updateGraphics
+     * @param {String} key the key of the new graphical component
+     * @param {Object} value the new graphical component
+     */
+    this.updateGraphics = function(key, value) {
+        graphics[key] = value;
+    }
+
+}
+
+
+/**
+ * A graphical element with a center and a radius.
+ *
+ * @class GraphicalBody
+ * @constructor
+ * @extends GraphicalElement
+ */
+function GraphicalBody(params) {
+
+    // superclass
+    GraphicalElement.apply(this);
+
+    var center = params.center || new Point(0, 0);
+    var radius = params.radius || -1;
+
+    /**
+     * Returns the radius.
+     *
+     * @method getRadius
+     * @return {Number} radius
+     */
+    this.getRadius = function(){
+        return radius;
+    };
+
+    /**
+     * Updates the radius.
+     *
+     * @method setRadius
+     * @param {Number} newRadius the new value for the radius
+     */
+    this.setRadius = function(newRadius) {
+        radius = newRadius;
+    };
+
+    /**
+     * Updates the center.
+     *
+     * @method setCenter
+     * @param {Point} newCenter the new value for the center
+     */
+    this.setCenter = function(newCenter) {
+        center = newCenter;
+    };
+
+    /**
+     * Returns the center.
+     *
+     * @method getCenter
+     * @return {Point} center
+     */
+    this.getCenter = function(){
+        return center;
+    };
+
+}
+
+
 /**
  * Contains data about an Autonomous System and its visual representation (a circle).
  *
@@ -68,126 +173,67 @@ function Point(x, y) {
  *   @param {Number} params.radius the radius of the circle
  *   @param {Boolean} [params.target] whether this Autonomous System represents a target (defaults to false)
  *   @param {Boolean} [params.neighbour] whether this Autonomous System is a direct neighbour of the main AS (defaults to false)
+ * @extends GraphicalBody
  */
 function AS(params){
-    var id = idcounter++;
+
+    // superclass
+    GraphicalBody.apply(this, arguments);
+
     var name = params.name || "";
     var number = params.number || -1;
-    var center = params.center || {x: 0, y: 0};
-    var radius = params.radius || 0;
     var target = params.target || false;
     var neighbour = params.neighbour || false;
-    var graphics = {}; // {circle: SVGCircle, name: SVGText}
-    return {
 
-        /**
-         * UID
-         *
-         * @property id
-         */
-        id: id,
+    /**
+     * UID
+     *
+     * @property id
+     */
+    this.id = idCounter++;
 
-        /**
-         * Returns the name of this AS.
-         *
-         * @method getName
-         * @return {String} name of this AS
-         */
-        getName: function(){
-            return name;
-        },
-
-        /**
-         * Returns the AS number.
-         *
-         * @method getNumber
-         * @return {Integer} AS number
-         */
-        getNumber: function() {
-            return number;
-        },
-
-        /**
-         * Returns the radius.
-         *
-         * @method getRadius
-         * @return {Number} radius
-         */
-        getRadius: function(){ // returns a number
-            return radius;
-        },
-
-        /**
-         * Updates the radius.
-         *
-         * @method setRadius
-         * @param {Number} newRadius the new value for the radius
-         */
-        setRadius: function(newRadius) {
-            radius = newRadius;
-        },
-
-        /**
-         * Updates the center.
-         *
-         * @method setCenter
-         * @param {Point} newCenter the new value for the center
-         */
-        setCenter: function(newCenter) {
-            center = newCenter;
-        },
-
-        /**
-         * Returns the center.
-         *
-         * @method getCenter
-         * @return {Point} center
-         */
-        getCenter: function(){
-            return center;
-        },
-
-        /**
-         * Checks if this AS is a target in the current visualization.
-         *
-         * @method isTarget
-         * @return {Boolean} true if this AS is a target, false otherwise
-         */
-        isTarget: function() {
-            return target;
-        },
-
-        /**
-         * Checks if this AS is a neighbour of the current AS.
-         *
-         * @method isNeighbour
-         * @return {Boolean} true if this AS is a neighbour, false otherwise
-         */
-        isNeighbour: function() {
-            return neighbour;
-        },
-
-        /**
-         * Returns the graphical elements associated with this AS.
-         *
-         * @method getGraphics
-         * @return {Object} graphical elements
-         */
-        getGraphics: function() {
-            return graphics;
-        },
-
-        /**
-         * Associates new graphical elements with this AS.
-         *
-         * @method setGraphics
-         * @param {Object} newGraphics the new graphical elements
-         */
-        setGraphics: function(newGraphics) {
-            graphics = newGraphics;
-        }
+    /**
+     * Returns the name of this AS.
+     *
+     * @method getName
+     * @return {String} name of this AS
+     */
+    this.getName = function(){
+        return name;
     };
+
+    /**
+     * Returns the AS number.
+     *
+     * @method getNumber
+     * @return {Integer} AS number
+     */
+    this.getNumber = function() {
+        return number;
+    };
+
+    /**
+     * Checks if this AS is a target in the current visualization.
+     *
+     * @method isTarget
+     * @return {Boolean} true if this AS is a target, false otherwise
+     */
+    this.isTarget = function() {
+        return target;
+    };
+
+    /**
+     * Checks if this AS is a neighbour of the current AS.
+     *
+     * @method isNeighbour
+     * @return {Boolean} true if this AS is a neighbour, false otherwise
+     */
+    this.isNeighbour = function() {
+        return neighbour;
+    };
+
 }
+
 
 /**
  * Represents the source Autonomous System in the visualization,
@@ -202,119 +248,33 @@ function AS(params){
  *   @param {Point} params.center the center of the circle
  *   @param {Number} params.radius the radius of the circle
  *   @param {String} params.imageURL the URL of the background image
+ * @extends AS
  */
 function MainAS(params) {
 
-    var id = idcounter++;
-    var name = params.name || "";
-    var number = params.number || -1;
-    var center = params.center || new Point(0, 0);
-    var radius = params.radius || 0;
+    AS.apply(this, arguments);
+
     var imageURL = params.imageURL || null;
-    var graphics;
 
-    return {
+    /**
+     * UID
+     *
+     * @property id
+     */
+    this.id = idCounter++;
 
-        /**
-         * UID
-         *
-         * @property id
-         */
-        id: id,
-
-        /**
-         * Returns the name of this AS.
-         *
-         * @method getName
-         * @return {String} name of this AS
-         */
-        getName: function(){
-            return name;
-        },
-
-        /**
-         * Returns the AS number.
-         *
-         * @method getNumber
-         * @return {Integer} AS number
-         */
-        getNumber: function() {
-            return number;
-        },
-
-        /**
-         * Returns the radius.
-         *
-         * @method getRadius
-         * @return {Number} radius
-         */
-        getRadius: function(){ // returns a number
-            return radius;
-        },
-
-        /**
-         * Updates the radius.
-         *
-         * @method setRadius
-         * @param {Number} newRadius the new value for the radius
-         */
-        setRadius: function(newRadius) {
-            radius = newRadius;
-        },
-
-        /**
-         * Updates the center.
-         *
-         * @method setCenter
-         * @param {Point} newCenter the new value for the center
-         */
-        setCenter: function(newCenter) {
-            center = newCenter;
-        },
-
-        /**
-         * Returns the center.
-         *
-         * @method getCenter
-         * @return {Point} center
-         */
-        getCenter: function(){
-            return center;
-        },
-
-        /**
-         * Returns the URL of the background image.
-         *
-         * @method getImageURL
-         * @return {String} URL of the background image
-         */
-        getImageURL: function() {
-            return imageURL;
-        },
-
-        /**
-         * Returns the graphical elements associated with this AS.
-         *
-         * @method getGraphics
-         * @return {Object} graphical elements
-         */
-        getGraphics: function() {
-            return graphics;
-        },
-
-        /**
-         * Associates new graphical elements with this AS.
-         *
-         * @method setGraphics
-         * @param {Object} newGraphics the new graphical elements
-         */
-        setGraphics: function(newGraphics) {
-            graphics = newGraphics;
-        }
-
+    /**
+     * Returns the URL of the background image.
+     *
+     * @method getImageURL
+     * @return {String} URL of the background image
+     */
+    this.getImageURL = function() {
+        return imageURL;
     };
 
 }
+
 
 /**
  * A link between two Autonomous System, represented as a rectangle bridging the two respective circles.
@@ -325,15 +285,16 @@ function MainAS(params) {
  *   @param {AS} params.from first Autonomous System
  *   @param {AS} params.to second Autonomous System
  *   @param {Number} params.width width of the rectangle
+ * @extends GraphicalElement
  */
 function ASLink(params){
 
+    GraphicalElement.apply(this);
+
     var as1 = params.from || undefined;
     var as2 = params.to || undefined;
-    var id = Utils.getConcatOrderedIDs(as1.id, as2.id);
     var width = params.width || 0;
     var sectorWidth = params.sectorWidth || width * 2/3;
-    var graphics; // {link: SVGPolygon}
     var p1, p2, direction, left, length;
     if(as1 && as2) {
         p1 = as1.getCenter();
@@ -343,127 +304,107 @@ function ASLink(params){
         left = Geometry.left(direction);
     }
 
-    return {
 
-        /**
-         * UID
-         *
-         * @property id
-         */
-        id: id,
+    /**
+     * UID
+     *
+     * @property id
+     */
+    this.id = Utils.getConcatOrderedIDs(as1.id, as2.id);
 
-        /**
-         * Returns the width of this link.
-         *
-         * @method getWidth
-         * @return {Number} the width of this link
-         */
-        getWidth: function() {
-            return width;
-        },
+    /**
+     * Returns the width of this link.
+     *
+     * @method getWidth
+     * @return {Number} the width of this link
+     */
+    this.getWidth = function() {
+        return width;
+    };
 
-        /**
-         * Updates the width of this link.
-         *
-         * @method setWidth
-         * @param {Number} newWidth the new width of this link
-         */
-        setWidth: function(newWidth) {
-            width = newWidth;
-        },
+    /**
+     * Updates the width of this link.
+     *
+     * @method setWidth
+     * @param {Number} newWidth the new width of this link
+     */
+    this.setWidth = function(newWidth) {
+        width = newWidth;
+    };
 
-        /**
-         * Returns the sector width, i.e. the portion of width of this link that can be filled with AS-paths.
-         *
-         * @method getSectorWidth
-         * @return {Number} the sector width of this link
-         */
-        getSectorWidth: function() {
-            return sectorWidth;
-        },
+    /**
+     * Returns the sector width, i.e. the portion of width of this link that can be filled with AS-paths.
+     *
+     * @method getSectorWidth
+     * @return {Number} the sector width of this link
+     */
+    this.getSectorWidth = function() {
+        return sectorWidth;
+    };
 
-        /**
-         * Updates the sector width.
-         *
-         * @method setSectorWidth
-         * @param {Number} newSectorWidth the new sector width of this link
-         */
-        setSectorWidth: function(newSectorWidth) {
-            sectorWidth = newSectorWidth;
-        },
+    /**
+     * Updates the sector width.
+     *
+     * @method setSectorWidth
+     * @param {Number} newSectorWidth the new sector width of this link
+     */
+    this.setSectorWidth = function(newSectorWidth) {
+        sectorWidth = newSectorWidth;
+    };
 
-        /**
-         * Returns the first AS of this link.
-         *
-         * @method getFirstAS
-         * @return {AS} the first AS
-         */
-        getFirstAS: function() {
-            return as1;
-        },
+    /**
+     * Returns the first AS of this link.
+     *
+     * @method getFirstAS
+     * @return {AS} the first AS
+     */
+    this.getFirstAS = function() {
+        return as1;
+    };
 
-        /**
-         * Returns the second AS of this link.
-         *
-         * @method getSecondAS
-         * @return {AS} the second AS
-         */
-        getSecondAS: function() {
-            return as2;
-        },
+    /**
+     * Returns the second AS of this link.
+     *
+     * @method getSecondAS
+     * @return {AS} the second AS
+     */
+    this.getSecondAS = function() {
+        return as2;
+    };
 
-        /**
-         * Returns the length of this link.
-         *
-         * @method getLength
-         * @return {Number} the length of this link
-         */
-        getLength: function() {
-            return length;
-        },
+    /**
+     * Returns the length of this link.
+     *
+     * @method getLength
+     * @return {Number} the length of this link
+     */
+    this.getLength = function() {
+        return length;
+    };
 
-        /**
-         * Returns the direction, i.e. a unit vector representing the direction from the first to the second AS.
-         *
-         * @method getDirection
-         * @return {Point} the direction of this link
-         */
-        getDirection: function() {
-            return direction;
-        },
+    /**
+     * Returns the direction, i.e. a unit vector representing the direction from the first to the second AS.
+     *
+     * @method getDirection
+     * @return {Point} the direction of this link
+     */
+    this.getDirection = function() {
+        return direction;
+    };
 
-        /**
-         * Returns the left direction of this link, i.e. the unit vector obtained rotating the original direction
-         * by 90 degrees to the left.
-         *
-         * @method getLeftDirection
-         * @return {Point} the left direction of this link
-         */
-        getLeftDirection: function() {
-            return left;
-        },
+    /**
+     * Returns the left direction of this link, i.e. the unit vector obtained rotating the original direction
+     * by 90 degrees to the left.
+     *
+     * @method getLeftDirection
+     * @return {Point} the left direction of this link
+     */
+    this.getLeftDirection = function() {
+        return left;
+    };
 
-        /**
-         * Returns the graphical elements associated with this link.
-         *
-         * @method getGraphics
-         * @return {Object} graphical elements
-         */
-        getGraphics: function() {
-            return graphics;
-        },
-
-        /**
-         * Associates new graphical elements with this link.
-         *
-         * @method setGraphics
-         * @param {Object} newGraphics the new graphical elements
-         */
-        setGraphics: function(newGraphics) {
-            graphics = newGraphics;
-        }
-    }
 }
+
 
 /**
  * A graph composed of Autonomous Systems and links between pairs of them.
@@ -472,31 +413,76 @@ function ASLink(params){
  * @constructor
  */
 function ASGraph(){
+
     var ASes = {};
     var ASLinks = {};
+
     return {
+
+        /**
+         * Returns a key-value map where keys are AS IDs and values are ASes.
+         * @method getASes
+         * @return {Object} a key-value AS map
+         */
         getASes: function(){
             return ASes;
         },
+
+        /**
+         * Returns the AS with this ID.
+         * @method getAS
+         * @param {String} asID the ID of the AS
+         * @return {AS} the AS, or undefined if it does not exist
+         */
         getAS: function(asID) {
             return ASes[asID];
         },
+
+        /**
+         * Returns a key-value map where keys are ASLink IDs and values are ASLinks.
+         * @method getASLinks
+         * @return {Object} a key-value ASLink map
+         */
         getASLinks: function(){
             return ASLinks;
         },
+
+        /**
+         * Returns the ASLink connecting the two input ASes.
+         * @method getASLink
+         * @param {AS} as1 the first AS
+         * @param {AS} as2 the second AS
+         * @return {ASLink} the link between the two ASes
+         */
         getASLink: function(as1, as2){
             return ASLinks[Utils.getConcatOrderedIDs(as1.id, as2.id)];
         },
+
+        /**
+         * Adds an AS to the graph and returns the updated AS map.
+         * @method addAS
+         * @param {AS} as the AS
+         * @return {Object} the updated AS map
+         */
         addAS: function(as){
             ASes[as.id] = as;
             return ASes;
         },
+
+        /**
+         * Adds an ASLink to the graph and returns the updated ASLink map.
+         * @method addASLink
+         * @param {ASLink} aslink the ASLink
+         * @return {Object} the updated ASLink map
+         */
         addASLink: function(aslink){
             ASLinks[aslink.id] = aslink;
             return ASLinks;
         }
+
     };
 }
+
 
 /**
  * An AS-path from a source AS to a target AS.
@@ -508,46 +494,94 @@ function ASGraph(){
  *   @param {Array} params.asArray the array of ASes composing the path
  *   @param {Number} params.rtt the round-trip time associated with the AS-path
  *   @param {SVGPath} params.svgPath the SVGPath representing the curve
+ * @extends GraphicalElement
  */
 function ASPath(params){  // Observe ASes must be an Array
-    var id = idcounter++;
+
+    // superclass
+    GraphicalElement.apply(this);
+
     var asArray = params.asArray || [];
     var rtt = params.rtt || -1;
     var svgPath = params.svgPath || null;
-    var graphics;
-    return {
-        id: id,
-        getRtt: function(){
-            return rtt;
-        },
-        setRtt: function(newRtt){
-            rtt = newRtt;
-        },
-        getASes: function(){
-            return asArray;
-        },
-        setASes: function(newASes){
-            asArray = newASes;
-        },
-        getLength: function() {
-            return asArray.length;
-        },
-        getSVGPath: function() {
-            return svgPath;
-        },
-        setSVGPath: function(newSVGPath) {
-            svgPath = newSVGPath;
-        },
-        getGraphics: function() {
-            return graphics;
-        },
-        setGraphics: function(newGraphics) {
-            graphics = newGraphics;
-        },
-        updateGraphics: function(key, value) {
-            graphics[key] = value;
-        }
+
+    /**
+     * UID
+     *
+     * @property id
+     */
+    this.id = idCounter++;
+
+    /**
+     * Returns the round-trip delay associated with this AS-path.
+     *
+     * @method getRtt
+     * @return {Number} the round-trip delay
+     */
+    this.getRtt = function(){
+        return rtt;
     };
+
+    /**
+     * Associates a new round-trip delay with this AS-path.
+     *
+     * @method setRtt
+     * @param {Number} newRtt the new round-trip delay
+     */
+    this.setRtt = function(newRtt){
+        rtt = newRtt;
+    };
+
+    /**
+     * Returns the array of ASes that compose the path.
+     *
+     * @method getASes
+     * @return {Array} the AS array
+     */
+    this.getASes = function(){
+        return asArray;
+    };
+
+    /**
+     * Associates a new array of ASes with the path.
+     *
+     * @method setASes
+     * @param {Array} newASes the new AS array
+     */
+    this.setASes = function(newASes){
+        asArray = newASes;
+    };
+
+    /**
+     * Returns the length of the AS-path.
+     *
+     * @method getLength
+     * @return {Number} the length
+     */
+    this.getLength = function() {
+        return asArray.length;
+    };
+
+    /**
+     * Returns the SVG path associated with this AS-path.
+     *
+     * @method getSVGPath
+     * @return {SVGPath} the SVG path
+     */
+    this.getSVGPath = function() {
+        return svgPath;
+    };
+
+    /**
+     * Associates a new SVG path with this AS-path.
+     *
+     * @method setSVGPath
+     * @param {SVGPath} newSVGPath the new SVG path
+     */
+    this.setSVGPath = function(newSVGPath) {
+        svgPath = newSVGPath;
+    };
+
 }
 
 /**
@@ -568,7 +602,7 @@ function ASPath(params){  // Observe ASes must be an Array
  *                                    originating from this probe (if any)
  */
 function Probe(params) {
-    var id = idcounter++;
+    var id = idCounter++;
     var latitude = params.latitude || -1;
     var longitude = params.longitude || -1;
     var ipPrefix = params.ipPrefix || -1;
@@ -645,7 +679,7 @@ function Probe(params) {
  *                                      whose traffic goes through this collector peer (if any)
  */
 function CollectorPeer(params) {
-    var id = idcounter++;
+    var id = idCounter++;
     var ip = params.ip || "";
     var asNumber = params.asNumber || -1;
     var rrc = params.rrc || "";
@@ -996,7 +1030,7 @@ function SVGPath() {
 
 function Event(params) {
 
-    var id = idcounter++;
+    var id = idCounter++;
     var type = params.type || "";
     var timestamp = params.timestamp || -1;
     var data = params.data || {};

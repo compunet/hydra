@@ -46,19 +46,19 @@ var svgPathP1 = {x: 10, y: 10},
 ModelTest.prototype.setUp=function(){
 
     // initialize ASes
-    as1 = AS({
+    as1 = new AS({
         name: as1name,
         number: as1number,
         center: {x: as1centerX, y: as1centerY},
         radius: as1radius
     });
-    as2 = AS({
+    as2 = new AS({
         name: as2name,
         number: as2number,
         center: {x: as2centerX, y: as2centerY},
         radius: as2radius
     });
-    as3 = AS({
+    as3 = new AS({
         name: as3name,
         number: as3number,
         center: {x: as3centerX, y: as3centerY},
@@ -66,19 +66,19 @@ ModelTest.prototype.setUp=function(){
     });
 
     // initialize AS links
-    asLink12 = ASLink({
+    asLink12 = new ASLink({
         from: as1,
         to: as2,
         width: asLink12width
     });
-    asLink13 = ASLink({
+    asLink13 = new ASLink({
         from: as1,
         to: as3,
         width: asLink13width
     });
 
     // initialize AS graph
-    asGraph = ASGraph();
+    asGraph = new ASGraph();
     asGraph.addAS(as1);
     asGraph.addAS(as2);
     asGraph.addAS(as3);
@@ -86,17 +86,17 @@ ModelTest.prototype.setUp=function(){
     asGraph.addASLink(asLink13);
 
     // initialize AS paths
-    asPath12 = ASPath({
+    asPath12 = new ASPath({
         asArray: [as1, as2],
         rtt: asPath12rtt
     });
-    asPath123 = ASPath({
+    asPath123 = new ASPath({
         asArray: [as1, as2, as3],
         rtt: asPath123rtt
     });
 
     // initialize SVG path
-    svgPath = SVGPath();
+    svgPath = new SVGPath();
     svgPath.M(svgPathP1);
     svgPath.L(svgPathP2);
     svgPath.Q(svgPathP3, svgPathP4);
@@ -109,6 +109,7 @@ ModelTest.prototype.testIfGraphIsCorrectlyPopulated = function() {
 
     var graphASes = asGraph.getASes(), graphASLinks = asGraph.getASLinks();
     var asCounter = 0, asLinkCounter = 0;
+    var graphAs;
 
     // 1. there should be 3 ASes
     for(graphAs in graphASes) {

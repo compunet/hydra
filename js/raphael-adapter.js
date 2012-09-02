@@ -487,35 +487,35 @@ var Canvas = function() {
 
     var initASGraphics = function() {
 
-        var AS, asID;
+        var as, asID;
         var asCircle, asUpperCircle, asText;
 
         // add graphics to ASes
         for(asID in asGraph.getASes()) {
 
-            AS = asGraph.getASes()[asID];
+            as = asGraph.getASes()[asID];
 
             asCircle = R.circle(
-                AS.getCenter().x,
-                AS.getCenter().y,
-                AS.getRadius()
+                as.getCenter().x,
+                as.getCenter().y,
+                as.getRadius()
             ).attr(asCircleStyleDefault);
 
             asUpperCircle = R.circle(
-                AS.getCenter().x,
-                AS.getCenter().y,
-                AS.getRadius()
-            ).attr(AS.isTarget() ? targetASUpperCircleStyleDefault : asUpperCircleStyleDefault);
+                as.getCenter().x,
+                as.getCenter().y,
+                as.getRadius()
+            ).attr(as.isTarget() ? targetASUpperCircleStyleDefault : asUpperCircleStyleDefault);
 
             asText = R.text(
-                AS.getCenter().x,
-                AS.getCenter().y,
-                AS.getName()
+                as.getCenter().x,
+                as.getCenter().y,
+                as.getName()
             ).attr(
                 asTextStyleDefault
-            ).attr("font-size", AS.getRadius()*0.8);
+            ).attr("font-size", as.getRadius()*0.8);
 
-            AS.setGraphics({
+            as.setGraphics({
                 circle: asCircle,
                 upperCircle: asUpperCircle,
                 text: asText
@@ -750,6 +750,7 @@ var Canvas = function() {
         var cpID, cp, asPath, rtt, asArray, i, as;
         var color;
         var asPathLine, asPathStartCircle, asPathEndCircle;
+        var graphics;
 
         for(cpID in cps) {
 
@@ -797,8 +798,12 @@ var Canvas = function() {
 
                 as = asGraph.getASes()[i];
 
-                as.getGraphics().upperCircle.insertAfter(asPathEndCircle);
-                as.getGraphics().text.insertAfter(as.getGraphics().upperCircle);
+                graphics = as.getGraphics();
+
+                console.log("as graphics", graphics);
+
+                graphics.upperCircle.insertAfter(asPathEndCircle);
+                graphics.text.insertAfter(graphics.upperCircle);
 
             }
 
