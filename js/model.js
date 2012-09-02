@@ -584,6 +584,7 @@ function ASPath(params){  // Observe ASes must be an Array
 
 }
 
+
 /**
  * An Atlas probe belonging to the source AS.
  * It is represented with a shape (circle or triangle) on the geographical map.
@@ -600,65 +601,108 @@ function ASPath(params){  // Observe ASes must be an Array
  *   @param {String} params.ipPrefix the IP prefix of the probe
  *   @param {CollectorPeer} params.cp the collector peer that routes traffic
  *                                    originating from this probe (if any)
+ * @extends GraphicalBody
  */
 function Probe(params) {
-    var id = idCounter++;
+
+    // superclass
+    GraphicalBody.apply(this, arguments);
+
     var latitude = params.latitude || -1;
     var longitude = params.longitude || -1;
     var ipPrefix = params.ipPrefix || -1;
     var number = params.number || -1;
-    var center = params.center || {x: 0, y: 0};
-    var radius = params.radius || 0;
     var rtt = params.rtt || -1;
     var cp = params.cp || null;
-    var graphics;
-    return {
-        id: id,
-        getNumber: function() {
-            return number;
-        },
-        getRadius: function(){ // returns a number
-            return radius;
-        },
-        getCenter: function(){ // returns an object as {x:10,y:20};
-            return center;
-        },
-        getLatitude: function() {
-            return latitude;
-        },
-        getLongitude: function() {
-            return longitude;
-        },
-        getIpPrefix: function() {
-            return ipPrefix;
-        },
-        setRadius: function(newRadius) {
-            radius = newRadius;
-        },
 
-        setCenter: function(newCenter) {
-            center = newCenter;
-        },
+    /**
+     * UID
+     *
+     * @property id
+     */
+    this.id = idCounter++;
 
-        getRtt: function() { // number
-            return rtt;
-        },
-        setRtt: function(newRtt) {
-            rtt = newRtt;
-        },
-        getCollectorPeer: function() {
-            return cp;
-        },
-        setCollectorPeer: function(newCp) {
-            cp = newCp;
-        },
-        getGraphics: function() {
-            return graphics;
-        },
-        setGraphics: function(newGraphics) {
-            graphics = newGraphics;
-        }
+    /**
+     * Returns the number of this probe.
+     *
+     * @method getNumber
+     * @return {Integer} number
+     */
+    this.getNumber = function() {
+        return number;
     };
+
+    /**
+     * Returns the latitude of this probe.
+     *
+     * @method getLatitude
+     * @return {Number} latitude
+     */
+    this.getLatitude = function() {
+        return latitude;
+    };
+
+    /**
+     * Returns the longitude of this probe.
+     *
+     * @method getLongitude
+     * @return {Number} longitude
+     */
+    this.getLongitude = function() {
+        return longitude;
+    };
+
+    /**
+     * Returns the IP prefix of this probe.
+     *
+     * @method getIpPrefix
+     * @return {String} IP prefix
+     */
+    this.getIpPrefix = function() {
+        return ipPrefix;
+    };
+
+    /**
+     * Returns the round-trip delay associated with this probe.
+     *
+     * @method getRtt
+     * @return {Number} the round-trip delay
+     */
+    this.getRtt = function(){
+        return rtt;
+    };
+
+    /**
+     * Associates a new round-trip delay with this probe.
+     *
+     * @method setRtt
+     * @param {Number} newRtt the new round-trip delay
+     */
+    this.setRtt = function(newRtt){
+        rtt = newRtt;
+    };
+
+    /**
+     * Returns the collector peer associated with this probe.
+     *
+     * @method getCollectorPeer
+     * @return {CollectorPeer} the collector peer
+     */
+    this.getCollectorPeer = function() {
+        return cp;
+    };
+
+    /**
+     * Associates a new collector peer with this probe.
+     *
+     * @method setCollectorPeer
+     * @param {CollectorPeer} newCp the new collector peer
+     */
+    this.setCollectorPeer = function(newCp) {
+        cp = newCp;
+    };
+
+
 }
 
 /**
@@ -669,82 +713,106 @@ function Probe(params) {
  * @constructor
  * @param {Object} params
  *   @param {String} params.ip the IP address
- *   @param {Integer} params.asNumber the number of the AS containing this collector peer
- *   @param {String} params.rrc the id of the route collector peering with this collector peer
+ *   @param {Integer} [params.asNumber] the number of the AS containing this collector peer
+ *   @param {String} [params.rrc] the id of the route collector peering with this collector peer
  *   @param {Point} params.center the center of the circle
  *   @param {Number} params.radius the radius of the circle
  *   @param {String} params.color the color identifying the collector peer
  *   @param {ASPath} params.asPath the AS-path announced by the collector peer
  *   @param {SVGPath} params.probeCloud the SVGPath containing the set of probes
  *                                      whose traffic goes through this collector peer (if any)
+ * @extends GraphicalBody
  */
 function CollectorPeer(params) {
-    var id = idCounter++;
+
+    // superclass
+    GraphicalBody.apply(this, arguments);
+
     var ip = params.ip || "";
-    var asNumber = params.asNumber || -1;
-    var rrc = params.rrc || "";
     var name = params.name || "";
-    var center = params.center || {x: 0, y: 0};
-    var radius = params.radius || 0;
     var color = params.color || "Green";
     var asPath = params.asPath || null;
     var probeCloud = params.probeCloud || null;
-    var graphics = {};
-    return {
-        id: id,
-        getIP: function() { // string
-            return ip;
-        },
-        getASNumber: function() { // as number (string)
-            return asNumber;
-        },
-        getRRC: function() {
-            return rrc;
-        },
-        getRadius: function(){ // returns a number
-            return radius;
-        },
-        getCenter: function(){ // returns an object as {x:10,y:20};
-            return center;
-        },
-        getName: function () {
-            return name;
-        },
-        setRadius: function(newRadius) {
-            radius = newRadius;
-        },
 
-        setCenter: function(newCenter) {
-            center = newCenter;
-        },
+    /**
+     * UID
+     *
+     * @property id
+     */
+    this.id = idCounter++;
 
-        getColor: function() {
-            return color;
-        },
-        getProbeCloud: function() {
-            return probeCloud;
-        },
-        setProbeCloud: function(newProbeCloud) {
-            probeCloud = newProbeCloud;
-        },
-        getASPath: function() { // ASPath
-            return asPath;
-        },
-        setASPath: function(newASPath) {
-            asPath = newASPath;
-        },
-        getGraphics: function() {
-            return graphics;
-        },
-        setGraphics: function(newGraphics) {
-            graphics = newGraphics;
-        },
-        updateGraphics: function(key, value) {
-            graphics[key] = value;
-            console.log("update graphics", graphics);
-        }
+    /**
+     * Returns the IP address of this collector peer.
+     *
+     * @method getIP
+     * @return {String} the IP
+     */
+    this.getIP = function() { // string
+        return ip;
     };
+
+    /**
+     * Returns the name of this collector peer.
+     *
+     * @method getName
+     * @return {String} the name
+     */
+    this.getName = function () {
+        return name;
+    };
+
+    /**
+     * Returns the color of this collector peer.
+     *
+     * @method getColor
+     * @return {String} the color
+     */
+    this.getColor = function() {
+        return color;
+    };
+
+    /**
+     * Returns the SVG path representing the probe cloud associated with this collector peer.
+     *
+     * @method getProbeCloud
+     * @return {SVGPath} the SVG path representing the probe cloud
+     */
+    this.getProbeCloud = function() {
+        return probeCloud;
+    };
+
+    /**
+     * Associates a new SVG path representing the probe cloud with this collector peer.
+     *
+     * @method setProbeCloud
+     * @param {SVGPath} newProbeCloud the new SVG path representing the probe cloud
+     */
+    this.setProbeCloud = function(newProbeCloud) {
+        probeCloud = newProbeCloud;
+    };
+
+    /**
+     * Returns the AS-path associated with this collector peer.
+     *
+     * @method getASPath
+     * @return {ASPath} the AS-path
+     */
+    this.getASPath = function() {
+        return asPath;
+    };
+
+    /**
+     * Associates a new AS-path with this collector peer.
+     *
+     * @method getASPath
+     * @param {ASPath} newASPath the new AS-path
+     */
+    this.setASPath = function(newASPath) {
+        asPath = newASPath;
+    };
+
 }
+
 
 /**
  * An abstraction for an SVG path.
