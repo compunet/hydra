@@ -324,57 +324,57 @@ var Main = function() {
         rttData5.probes[prb4.id] = 280;
 
         return [
-            Event({
+            new NetworkEvent({
                 type: "bgp",
                 data: bgpData,
                 timestamp: 0
             }),
-            Event({
+            new NetworkEvent({
                 type: "rtt",
                 data: rttData,
                 timestamp: 10
             }),
-            Event({
+            new NetworkEvent({
                 type: "correlation",
                 data: correlationData2,
                 timestamp: 20
             }),
-            Event({
+            new NetworkEvent({
                 type: "rtt",
                 data: rttData2,
                 timestamp: 22
             }),
-            Event({
+            new NetworkEvent({
                 type: "bgp",
                 data: bgpData2,
                 timestamp: 30
             }),
-            Event({
+            new NetworkEvent({
                 type: "rtt",
                 data: rttData3,
                 timestamp: 32
             }),
-            Event({
+            new NetworkEvent({
                 type: "correlation",
                 data: correlationData3,
                 timestamp: 34
             }) ,
-            Event({
+            new NetworkEvent({
                 type: "rtt",
                 data: rttData4,
                 timestamp: 36
             }),
-            Event({
+            new NetworkEvent({
                 type: "bgp",
                 data: bgpData3,
                 timestamp: 38
             }),
-            Event({
+            new NetworkEvent({
                 type: "correlation",
                 data: correlationData4,
                 timestamp: 40
             }),
-            Event({
+            new NetworkEvent({
                 type: "rtt",
                 data: rttData5,
                 timestamp: 42
@@ -382,7 +382,7 @@ var Main = function() {
         ];
     };
 
-    var initCollectorPeers = function(asGraph) {
+    var initCollectorPeers = function() {
 
         //var asPathArray1 = [as1, as2, as3],
         //    asPathArray2 = [as1, as2, as3];

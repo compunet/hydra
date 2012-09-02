@@ -48,15 +48,15 @@ var AtlasBgpEngine = function() {
             throw new Error("event is missing key attributes.");
         }
 
-        if(type == Event.BGP) {
+        if(type == NetworkEvent.BGP) {
             return processBGPEvent(data, callback);
         }
 
-        if(type == Event.CORRELATION) {
+        if(type == NetworkEvent.CORRELATION) {
             return processCorrelationEvent(data, callback);
         }
 
-        if(type == Event.RTT) {
+        if(type == NetworkEvent.RTT) {
             return processRttEvent(data, callback);
         }
 

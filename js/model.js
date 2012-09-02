@@ -926,7 +926,7 @@ function SVGPath() {
          */
         clone: function() {
 
-            var cloneSVGPath = SVGPath();
+            var cloneSVGPath = new SVGPath();
             var i;
 
             for(i = 0; i < path.length; i++) {
@@ -976,20 +976,19 @@ function SVGPath() {
          */
         addFakePoints: function(number, position) {
 
-            var oldPath = path;
             var i, j, segmentPoints, lastPoint;
-            position = position || oldPath.length / 2;
+            position = position || path.length / 2;
             number = number || 0;
 
             // reset the SVG path and start from scratch
             reset();
 
-            for(i = 0; i < oldPath.length; i++) {
+            for(i = 0; i < path.length; i++) {
 
                 // use old piece of path
-                segmentPoints = oldPath[i].points;
+                segmentPoints = path[i].points;
 
-                update(oldPath[i].cmd, oldPath[i].type, segmentPoints);
+                update(path[i].cmd, path[i].type, segmentPoints);
 
                 if(segmentPoints.length > 0) {
 
@@ -1016,23 +1015,21 @@ function SVGPath() {
          */
         removeFakePoints: function() {
 
-            var oldPath = path;
-
-            var i, segmentPoints, lastPoint;
+            var i, segmentPoints, lastPoint = 0;
 
             // reset the SVG path and start from scratch
             reset();
 
-            for(i = 0; i < oldPath.length; i++) {
+            for(i = 0; i < path.length; i++) {
 
-                segmentPoints = oldPath[i].points;
+                segmentPoints = path[i].points;
 
                 // only add piece of path if it is not a fake point
                 if(
-                    oldPath[i].type != "line" ||
-                    !Utils.sameArray(oldPath[i].points, [lastPoint])
+                    path[i].type != "line" ||
+                    !Utils.sameArray(path[i].points, [lastPoint])
                     ) {
-                    update(oldPath[i].type.cmd, oldPath[i].type, segmentPoints);
+                    update(path[i].type.cmd, path[i].type, segmentPoints);
                 }
 
                 lastPoint = segmentPoints[segmentPoints.length - 1];
@@ -1096,7 +1093,7 @@ function SVGPath() {
 
 
 
-function Event(params) {
+function NetworkEvent(params) {
 
     var id = idCounter++;
     var type = params.type || "";
@@ -1119,8 +1116,8 @@ function Event(params) {
 
     };
 
-};
+}
 
-Event.BGP = "bgp";
-Event.RTT = "rtt";
-Event.CORRELATION = "correlation";
+NetworkEvent.BGP = "bgp";
+NetworkEvent.RTT = "rtt";
+NetworkEvent.CORRELATION = "correlation";
