@@ -1,8 +1,8 @@
-bgpdeco
+Hydra
 =======
 
-BGPdeco: a BGP and Round-Trip Delay Correlation Tool
-----------------------------------------------------
+A BGP and Round-Trip Delay Correlation Tool
+-------------------------------------------
 
 
 to get started:

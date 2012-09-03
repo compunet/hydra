@@ -1,18 +1,18 @@
 /*
- * BGPdeco
+ * Hydra
  * A BGP and Round-Trip Delay Correlation Tool
  *
  * Copyright (C) 2012 Computer Networks Research Lab, Roma Tre University
  * Contact: squarcel@dia.uniroma3.it
  *
- * This file is part of BGPdeco.
+ * This file is part of Hydra.
  *
- * BGPdeco is free software: you can redistribute it and/or modify
+ * Hydra is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * BGPdeco is distributed in the hope that it will be useful,
+ * Hydra is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
