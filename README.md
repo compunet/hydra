@@ -2,7 +2,7 @@ bgpdeco
 =======
 
 BGPdeco: a BGP and Round-Trip Delay Correlation Tool
-
+----------------------------------------------------
 
 
 to get started:
@@ -11,8 +11,9 @@ to get started:
 
 to see the API documentation:
 - install yuidoc (http://yui.github.com/yuidoc/)
-- from the root dir run "yuidoc --server"
+- from the root dir run "yuidoc --server ."
 - visit http://127.0.0.1:3000/
+- if you want to create persistent docs instead run "yuidoc -o './doc' ."
 
 to run tests in WebStorm:
 - click "JsTestDriver Server" at the bottom of the window

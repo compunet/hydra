@@ -1095,7 +1095,17 @@ function SVGPath() {
 }
 
 
-
+/**
+ * Represents a network event that changes the state of some
+ * elements in the visualization.
+ *
+ * @class NetworkEvent
+ * @constructor
+ * @param params {Object}
+ *   @param params.type {String} the type of event
+ *   @param params.timestamp {Number} the time of the event
+ *   @param params.data {Object} the type-specific data for the event
+ */
 function NetworkEvent(params) {
 
     var id = idCounter++;
@@ -1105,14 +1115,39 @@ function NetworkEvent(params) {
 
     return {
 
-
+        /**
+         * UID
+         *
+         * @property id
+         */
         id: id,
+
+        /**
+         * Returns the type of event.
+         *
+         * @method getType
+         * @return {String} the type
+         */
         getType: function(){
             return type;
         },
+
+        /**
+         * Returns the timestamp of the event.
+         *
+         * @method getTimestamp
+         * @return {String} the timestamp
+         */
         getTimestamp: function() {
             return timestamp;
         },
+
+        /**
+         * Returns the data of the event.
+         *
+         * @method getData
+         * @return {String} the data
+         */
         getData: function() {
             return data;
         }
@@ -1121,6 +1156,23 @@ function NetworkEvent(params) {
 
 }
 
+/**
+ * The type for a BGP event.
+ *
+ * @property BGP {String}
+ */
 NetworkEvent.BGP = "bgp";
+
+/**
+ * The type for a round-trip delay change.
+ *
+ * @property RTT {String}
+ */
 NetworkEvent.RTT = "rtt";
+
+/**
+ * The type for a change in correlation between collector peers and probes.
+ *
+ * @property CORRELATION {String}
+ */
 NetworkEvent.CORRELATION = "correlation";
